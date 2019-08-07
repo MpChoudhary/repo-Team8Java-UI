@@ -26,7 +26,6 @@ public class FeatureController {
     @Autowired
     private JsonService jsonService;
 
-
     @RequestMapping(value = "/FeatureHandler", method = RequestMethod.GET)
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String featureGetHandler(HttpServletRequest req, HttpServletResponse res, Model theModel) {
@@ -44,7 +43,6 @@ public class FeatureController {
         theModel.addAttribute("features", features);
         return "feature";
     }
-
 
     @RequestMapping(value = "/FeatureHandler", method = RequestMethod.POST)
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -120,15 +118,20 @@ public class FeatureController {
             case DELETE:
                 int deleteFeatureId = Integer.parseInt(((String) jsonObject.get("submit")).substring(6));
                 Feature feature = projectService.getFeature(deleteFeatureId);
-                if(feature.getFeatureValues() != null) {
-                    for (FeatureValue fv : feature.getFeatureValues()) {
-                        projectService.deleteFeatureValue(fv.getId());
-                    }
-                }
-                projectService.deleteFeature(deleteFeatureId);
 
-                jsonService.flushMessage("Successfully deleted", res);
-                jsonService.flushFeatures(res, projectService.getFeatures());
+                if(feature != null) {
+                    if(feature.getFeatureValues() != null) {
+                        for (FeatureValue fv : feature.getFeatureValues()) {
+                            projectService.deleteFeatureValue(fv.getId());
+                        }
+                    }
+                    projectService.deleteFeature(deleteFeatureId);
+
+                    jsonService.flushMessage("Successfully deleted", res);
+                    jsonService.flushFeatures(res, projectService.getFeatures());
+                } else {
+                    jsonService.flushMessage("Feature id not found!", res);
+                }
                 break;
 
             case DISPLAY_ALL:
@@ -138,7 +141,7 @@ public class FeatureController {
 
             case FIND:
                 int findFeatureId = Integer.parseInt(((String) jsonObject.get("submit")).substring(4));
-                jsonService.flushFeature(res, projectService.getFeatures(), findFeatureId);
+                jsonService.flushFeature(res, findFeatureId);
                 break;
 
             case NOT_FOUND:
@@ -152,9 +155,21 @@ public class FeatureController {
     }
 
     private Feature newFeature(JSONObject jsonObject, Project project) {
-        Feature feature = new Feature((String) jsonObject.get("featureName"), (String) jsonObject.get("featureType"),
-                        null);
+        Feature feature;
+        if(verifyFormulaContent(jsonObject)) {
+            feature = new Feature((String) jsonObject.get("featureName"), (String) jsonObject.get("featureType"),
+                    (String) jsonObject.get("featureContent"));
+        } else {
+            feature = new Feature((String) jsonObject.get("featureName"), (String) jsonObject.get("featureType"), null);
+        }
         feature.setProject(project);
         return feature;
+    }
+
+    private boolean verifyFormulaContent(JSONObject jsonObject) {
+        if(((String) jsonObject.get("featureType")).equalsIgnoreCase("formula")) {
+            return jsonObject.get("featureContent") != null && !((((String) jsonObject.get("featureContent")).trim()).equals(""));
+        }
+        return false;
     }
 }

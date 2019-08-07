@@ -30,9 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthEntryPoint unauthorizedHandler;
 
-    @Autowired
-    CustomizeLogoutSuccessHandler customizeLogoutSuccessHandler;
-
     @Bean
     public JwtAuthTokenFilter authenticationJwtTokenFilter() {
         return new JwtAuthTokenFilter();
@@ -64,37 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .logout()
-                .logoutSuccessHandler(customizeLogoutSuccessHandler)
-                .permitAll();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/","/logoutsuccessful").permitAll()
-//                .antMatchers("/admin").hasRole("ADMIN")
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().loginPage("/login")
-//                .permitAll()
-//                .and()
-//                .logout().logoutSuccessHandler(customizeLogoutSuccessHandler)
-//                .permitAll();
-//        http.exceptionHandling().accessDeniedPage("/403");
-//    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("user").roles("USER")
-                .and()
-                .withUser("admin").password("admin").roles("ADMIN");
     }
 }

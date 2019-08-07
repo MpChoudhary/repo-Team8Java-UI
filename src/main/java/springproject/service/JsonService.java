@@ -1,6 +1,5 @@
 package springproject.service;
 
-import com.sun.org.apache.regexp.internal.RE;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import springproject.entity.Feature;
@@ -22,15 +21,15 @@ public interface JsonService {
     void flushMessage(String message, HttpServletResponse res) throws IOException;
 
     void flushProjects(HttpServletResponse res, List<Project> projects) throws IOException;
-    void flushProject(HttpServletResponse res, List<Project> projects, int projectId) throws IOException;
+    void flushProject(HttpServletResponse res, int projectId) throws IOException;
 
     void flushResources(HttpServletResponse res, List<Resource> resources) throws IOException;
-    void flushResource(HttpServletResponse res, List<Resource> resources, int projectId) throws IOException;
+    void flushResource(HttpServletResponse res, int resourceId) throws IOException;
 
     void flushFeatures(HttpServletResponse res, List<Feature> features) throws IOException;
-    void flushFeature(HttpServletResponse res, List<Feature> features, int projectId) throws IOException;
+    void flushFeature(HttpServletResponse res, int featureId) throws IOException;
 
     void flushFeatureValues(HttpServletResponse res, List<FeatureValue> featureValues) throws IOException;
-    void flushFeatureValue(HttpServletResponse res, List<FeatureValue> featureValues, int projectId) throws IOException;
+    void flushFeatureValue(HttpServletResponse res, int featureValueId) throws IOException;
 
 }

@@ -3,21 +3,26 @@ package springproject.controller;
 import java.io.IOException;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import springproject.entity.*;
 import springproject.service.JsonService;
 import springproject.service.ProjectService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Response;
 
 @Controller
 public class ProjectController {
@@ -29,7 +34,6 @@ public class ProjectController {
 	private JsonService jsonService;
 
 	@RequestMapping(value = "/ProjectHandler", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public String projectGetHandler(Model theModel) {
 		List<Project> projects = projectService.getProjects();
 		theModel.addAttribute("projects", projects);
@@ -37,7 +41,6 @@ public class ProjectController {
 	}
 
 	@RequestMapping(value = "/ProjectHandler", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public void projectPostHandler(HttpServletRequest req, HttpServletResponse res, Model theModel)
 			throws IOException, ParseException {
 		String body = jsonService.requestToString(req);
@@ -92,26 +95,28 @@ public class ProjectController {
 				int deleteProjectId = Integer.parseInt(((String) jsonObject.get("submit")).substring(6));
 				project = projectService.getProject(deleteProjectId);
 
-				if(project.getResources() != null) {
-					if(project.getFeatures() != null) {
-						if (project.getFeatureValues() != null) {
-							for(FeatureValue featureValue : project.getFeatureValues()) {
-								projectService.deleteFeatureValue(featureValue.getId());
+				if(project != null) {
+					if(project.getResources() != null) {
+						if(project.getFeatures() != null) {
+							if (project.getFeatureValues() != null) {
+								for(FeatureValue featureValue : project.getFeatureValues()) {
+									projectService.deleteFeatureValue(featureValue.getId());
+								}
+							}
+							for(Feature feature :project.getFeatures()) {
+								projectService.deleteFeature(feature.getId());
 							}
 						}
-						for(Feature feature :project.getFeatures()) {
-							projectService.deleteFeature(feature.getId());
+						for (Resource resource : project.getResources()) {
+							projectService.deleteResource(resource.getId());
 						}
 					}
-					for (Resource resource : project.getResources()) {
-						projectService.deleteResource(resource.getId());
-					}
+					projectService.deleteProject(deleteProjectId);
+					jsonService.flushMessage("Successfully deleted", res);
+					jsonService.flushProjects(res, projectService.getProjects());
+				} else {
+					jsonService.flushMessage("Project id not found!", res);
 				}
-
-				projectService.deleteProject(deleteProjectId);
-
-				jsonService.flushMessage("Successfully deleted", res);
-				jsonService.flushProjects(res, projectService.getProjects());
 				break;
 
 			case DISPLAY:
@@ -122,7 +127,7 @@ public class ProjectController {
 
 			case FIND:
 				int findProjectId = Integer.parseInt(((String) jsonObject.get("submit")).substring(4));
-				jsonService.flushProject(res, projectService.getProjects(), findProjectId);
+				jsonService.flushProject(res, findProjectId);
 				break;
 
 			case NOT_FOUND:

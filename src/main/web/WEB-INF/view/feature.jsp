@@ -28,6 +28,7 @@
         <select name="featureType" id="featureType">
             <option value="number">Number</option>
             <option value="text">Text</option>
+            <option value="formula">formula</option>
         </select>
 
         <label for="featureContent">Content</label>
