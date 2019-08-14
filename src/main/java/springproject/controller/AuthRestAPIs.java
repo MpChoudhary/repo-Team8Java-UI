@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import springproject.message.request.LoginForm;
 import springproject.message.request.SignUpForm;
 import springproject.message.response.JwtResponse;
+import springproject.message.response.SignUpResponse;
 import springproject.model.Role;
 import springproject.model.RoleName;
 import springproject.model.User;
@@ -65,11 +66,12 @@ public class AuthRestAPIs {
         return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
+    @PostMapping(path = "/signup", produces = "application/json")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
         if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity<String>("Fail -> Email is already in use!",
-                    HttpStatus.BAD_REQUEST);
+//            return new ResponseEntity<?>(SignUpResponse("Fail -> Email is already in use!"),
+//                    HttpStatus.BAD_REQUEST);
+            return ResponseEntity.ok(new SignUpResponse("Fail -> Email is already in use!"));
         }
 
         // Creating user's account
@@ -102,7 +104,7 @@ public class AuthRestAPIs {
         
         user.setRoles(roles);
         userRepository.save(user);
-
-        return ResponseEntity.ok().body("User registered successfully!");
+        String success = "User registered successfully!";
+        return ResponseEntity.ok(new SignUpResponse(success));
     }
 }
