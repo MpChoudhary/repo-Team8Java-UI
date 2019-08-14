@@ -18,10 +18,10 @@ public class DBConfig {
     private String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
     //    @Value("${db.password}")
-    private String PASSWORD = "reallyStrong!123";
+    private String PASSWORD = "reallyStrong123*";
 
     //    @Value("${db.url}")
-    private String URL = "jdbc:sqlserver://192.168.99.100\\\\sql_server:1433;databaseName=SpringProject";
+    private String URL = "jdbc:sqlserver://localhost:1433;databaseName=SpringProject";
 
     //    @Value("${db.username}")
     private String USERNAME = "sa";
@@ -59,7 +59,6 @@ public class DBConfig {
         hibernateProperties.put("hibernate.show_sql", SHOW_SQL);
         hibernateProperties.put("hibernate.hbm2ddl.auto", HBM2DDL_AUTO);
         sessionFactory.setHibernateProperties(hibernateProperties);
-
         return sessionFactory;
     }
 

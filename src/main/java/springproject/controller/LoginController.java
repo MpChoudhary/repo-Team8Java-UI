@@ -3,7 +3,6 @@ package springproject.controller;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,13 +24,11 @@ public class LoginController {
     private JsonService jsonService;
 
     @RequestMapping(value = "/LoginHandler", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String loginGetHandler() {
         return "login";
     }
 
     @RequestMapping(value = "/LoginHandler", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public void loginPostHandler(HttpServletRequest req, HttpServletResponse res, ModelMap model)
             throws IOException, ParseException {
 

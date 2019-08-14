@@ -7,8 +7,59 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7251a8c-7f30-4e7e-92f4-269a6b6eedbb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/SpringBootJwtAuthenticationApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/SpringBootJwtAuthenticationApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/config/CustomizeLogoutSuccessHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/config/DBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/config/DBConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/config/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/springproject/controller/AuthRestAPIs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/controller/AuthRestAPIs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/controller/FeatureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/controller/FeatureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/controller/FeatureValueController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/controller/FeatureValueController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/controller/ProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/controller/ProjectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/controller/ResourceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/controller/ResourceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/controller/TestDB.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/controller/TestRestAPIs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/controller/TestRestAPIs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/controller/TestingController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/dao/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/dao/RoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/dao/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/dao/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/entity/TestDB.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/message/request/LoginForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/message/request/LoginForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/message/request/SignUpForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/message/request/SignUpForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/message/response/JwtResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/message/response/JwtResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/model/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/model/RoleName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/model/RoleName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/security/jwt/JwtAuthEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/security/jwt/JwtAuthEntryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/security/jwt/JwtAuthTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/security/jwt/JwtAuthTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/security/jwt/JwtProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/security/jwt/JwtProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/security/services/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/security/services/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/security/services/UserPrinciple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/security/services/UserPrinciple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/service/JsonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/service/JsonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/springproject/service/JsonServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/springproject/service/JsonServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/roles.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/roles.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/web/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/web/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/web/WEB-INF/view/feature.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/web/WEB-INF/view/feature.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Spring-MVC-Maven-01/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/Spring-MVC-Maven-01/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/Spring-MVC-Maven-01.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/spring-boot.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/roles.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/roles.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/controller/AuthRestAPIs.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/controller/AuthRestAPIs.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/controller/FeatureController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/controller/FeatureController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/controller/FeatureController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/controller/FeatureController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/controller/FeatureValueController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/controller/FeatureValueController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/controller/FeatureValueController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/controller/FeatureValueController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/controller/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/controller/ProjectController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/controller/ProjectController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/controller/ProjectController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/controller/ProjectController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/controller/ResourceController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/controller/ResourceController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/controller/ResourceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/controller/ResourceController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/security/jwt/JwtProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/security/jwt/JwtProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/security/services/UserPrinciple.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/security/services/UserPrinciple.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/service/JsonService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/service/JsonService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/springproject/service/JsonServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/springproject/service/JsonServiceImpl.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -40,8 +91,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/springproject/controller/AuthRestAPIs.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="72" column="46" lean-forward="true" selection-start-line="72" selection-start-column="46" selection-end-line="72" selection-end-column="46" />
+            <state>
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,7 +103,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/springproject/message/response/JwtResponse.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="80">
-              <caret line="4" column="35" lean-forward="true" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+              <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -77,8 +127,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/springproject/controller/ProjectController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="43" column="8" lean-forward="true" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="63" />
+            <state relative-caret-position="200">
+              <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -229,16 +279,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="springproject" type="462c0819:PsiDirectoryNode" />
               <item name="message" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="repo-Team8Java-UI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="repo-Team8Java-UI" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="springproject" type="462c0819:PsiDirectoryNode" />
-              <item name="message" type="462c0819:PsiDirectoryNode" />
-              <item name="response" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="repo-Team8Java-UI" type="b2602c69:ProjectViewProjectNode" />
@@ -407,18 +447,18 @@
       <workItem from="1565118073231" duration="3588000" />
       <workItem from="1565122943138" duration="3641000" />
       <workItem from="1565186353233" duration="7055000" />
-      <workItem from="1565816428465" duration="2191000" />
+      <workItem from="1565816428465" duration="2470000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16475000" />
+    <option name="totallyTimeSpent" value="16754000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24453442" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24453442" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -428,7 +468,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.6625222" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.053285968" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39964476" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -798,8 +838,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/springproject/controller/ProjectController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="43" column="8" lean-forward="true" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="63" />
+        <state relative-caret-position="200">
+          <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -809,7 +849,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/springproject/message/response/JwtResponse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
-          <caret line="4" column="35" lean-forward="true" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -829,8 +869,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/springproject/controller/AuthRestAPIs.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="72" column="46" lean-forward="true" selection-start-line="72" selection-start-column="46" selection-end-line="72" selection-end-column="46" />
+        <state>
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

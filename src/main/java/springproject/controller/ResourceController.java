@@ -3,7 +3,6 @@ package springproject.controller;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +29,6 @@ public class ResourceController {
     private JsonService jsonService;
 
     @RequestMapping(value = "/ResourceHandler", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String resourceGetHandler(HttpServletRequest req, HttpServletResponse res, Model theModel) {
 
         List<Project> projects = projectService.getProjects();
@@ -118,14 +116,18 @@ public class ResourceController {
 
             case DELETE:
                 int deleteResourceId = Integer.parseInt(((String) jsonObject.get("submit")).substring(6));
-                Resource resource = projectService.getResource(deleteResourceId);
-                if(resource.getFeatureValue() != null) {
-                    projectService.deleteFeatureValue(resource.getFeatureValue().getId());
-                }
-                projectService.deleteResource(deleteResourceId);
 
-                jsonService.flushMessage("Resource successfully deleted", res);
-                jsonService.flushResources(res, projectService.getResources());
+                Resource resource = projectService.getResource(deleteResourceId);
+                if(resource != null) {
+                    if(resource.getFeatureValue() != null) {
+                        projectService.deleteFeatureValue(resource.getFeatureValue().getId());
+                    }
+                    projectService.deleteResource(deleteResourceId);
+                    jsonService.flushMessage("Resource successfully deleted", res);
+                    jsonService.flushResources(res, projectService.getResources());
+                } else {
+                    jsonService.flushMessage("Resource id not found!", res);
+                }
                 break;
 
             case DISPLAY_ALL:
@@ -135,7 +137,7 @@ public class ResourceController {
 
             case FIND:
                 int findResourceId = Integer.parseInt(((String) jsonObject.get("submit")).substring(4));
-                jsonService.flushResource(res, projectService.getResources(), findResourceId);
+                jsonService.flushResource(res, findResourceId);
                 break;
 
             case NOT_FOUND:

@@ -3,7 +3,6 @@ package springproject.controller;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +26,6 @@ public class FeatureValueController {
     private JsonService jsonService;
 
     @RequestMapping(value = "/FeatureValueHandler", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String featureValueGetHandler(HttpServletRequest req, HttpServletResponse res, Model theModel) {
         List<Project> projects = projectService.getProjects();
         List<Resource> resources = projectService.getResources();
@@ -49,7 +47,6 @@ public class FeatureValueController {
     }
 
     @RequestMapping(value = "/FeatureValueHandler", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public void featureValuePostHandler(HttpServletRequest req, HttpServletResponse res, Model theModel)
             throws IOException, ParseException {
         String body = jsonService.requestToString(req);
@@ -126,11 +123,16 @@ public class FeatureValueController {
 
             case DELETE:
                 int deleteFeatureValueId = Integer.parseInt(((String) jsonObject.get("submit")).substring(6));
-                projectService.deleteFeatureValue(deleteFeatureValueId);
 
-                jsonService.flushMessage("Successfully deleted", res);
-                jsonService.flushFeatureValues(res, projectService.getFeatureValues());
+                if(projectService.getFeatureValue(deleteFeatureValueId) != null) {
+                    projectService.deleteFeatureValue(deleteFeatureValueId);
+                    jsonService.flushMessage("Successfully deleted", res);
+                    jsonService.flushFeatureValues(res, projectService.getFeatureValues());
+                } else {
+                    jsonService.flushMessage("Feature value id not found!", res);
+                }
                 break;
+
             case DISPLAY_ALL:
                 jsonService.flushMessage("Display all", res);
                 jsonService.flushProjects(res, projectService.getProjects());
@@ -138,7 +140,7 @@ public class FeatureValueController {
 
             case FIND:
                 int findFeatureValueId = Integer.parseInt(((String) jsonObject.get("submit")).substring(4));
-                jsonService.flushFeatureValue(res, projectService.getFeatureValues(), findFeatureValueId);
+                jsonService.flushFeatureValue(res, findFeatureValueId);
                 break;
 
             case NOT_FOUND:

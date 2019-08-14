@@ -89,15 +89,15 @@ public class JsonServiceImpl implements JsonService {
     }
 
     @Override
-    public void flushProject(HttpServletResponse res, List<Project> projects, int projectId) throws IOException {
+    public void flushProject(HttpServletResponse res, int projectId) throws IOException {
         PrintWriter pw = res.getWriter();
-        for (Project project : projects) {
-            if (project.getId() == projectId) {
-                String json = objectWriter.writeValueAsString(projectService.getProject(project.getId()));
-                System.out.println(json);
-                pw.println(json);
-                break;
-            }
+        Project project = projectService.getProject(projectId);
+        if(project != null) {
+            String json = objectWriter.writeValueAsString(project);
+            System.out.println("Flushing project " + projectId);
+            pw.println(json);
+        } else {
+            flushMessage("Project id not found!", res);
         }
     }
 
@@ -112,16 +112,17 @@ public class JsonServiceImpl implements JsonService {
     }
 
     @Override
-    public void flushResource(HttpServletResponse res, List<Resource> resources, int id) throws IOException {
+    public void flushResource(HttpServletResponse res, int resourceId) throws IOException {
         PrintWriter pw = res.getWriter();
-        for (Resource resource : resources) {
-            if (resource.getId() == id) {
-                String json = objectWriter.writeValueAsString(projectService.getResource(resource.getId()));
-                System.out.println(json);
-                pw.println(json);
-                break;
-            }
+        Resource resource = projectService.getResource(resourceId);
+        if(resource != null) {
+            String json = objectWriter.writeValueAsString(resource);
+            System.out.println("Flushing resource " + resourceId);
+            pw.println(json);
+        } else {
+            flushMessage("Resource id not found!", res);
         }
+
     }
 
     @Override
@@ -135,15 +136,15 @@ public class JsonServiceImpl implements JsonService {
     }
 
     @Override
-    public void flushFeature(HttpServletResponse res, List<Feature> features, int id) throws IOException {
+    public void flushFeature(HttpServletResponse res, int featureId) throws IOException {
         PrintWriter pw = res.getWriter();
-        for (Feature feature : features) {
-            if (feature.getId() == id) {
-                String json = objectWriter.writeValueAsString(projectService.getFeature(feature.getId()));
-                System.out.println(json);
-                pw.println(json);
-                break;
-            }
+        Feature feature = projectService.getFeature(featureId);
+        if(feature != null) {
+            String json = objectWriter.writeValueAsString(feature);
+            System.out.println("Flushing feature " + featureId);
+            pw.println(json);
+        } else {
+            flushMessage("Feature id not found!", res);
         }
     }
 
@@ -158,15 +159,15 @@ public class JsonServiceImpl implements JsonService {
     }
 
     @Override
-    public void flushFeatureValue(HttpServletResponse res, List<FeatureValue> featureValues, int id) throws IOException {
+    public void flushFeatureValue(HttpServletResponse res, int featureValueId) throws IOException {
         PrintWriter pw = res.getWriter();
-        for (FeatureValue featureValue : featureValues) {
-            if (featureValue.getId() == id) {
-                String json = objectWriter.writeValueAsString(projectService.getFeatureValue(featureValue.getId()));
-                System.out.println(json);
-                pw.println(json);
-                break;
-            }
+        FeatureValue featureValue = projectService.getFeatureValue(featureValueId);
+        if(featureValue != null) {
+            String json = objectWriter.writeValueAsString(featureValue);
+            System.out.println("Flushing feature value " + featureValueId);
+            pw.println(json);
+        } else {
+            flushMessage("Feature value not found!", res);
         }
     }
 }
