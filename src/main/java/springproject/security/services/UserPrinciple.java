@@ -20,7 +20,7 @@ public class UserPrinciple implements UserDetails {
 
     private String last_name;
 
-    private String username;
+    private String email;
 
     @JsonIgnore
     private String password;
@@ -33,7 +33,7 @@ public class UserPrinciple implements UserDetails {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
-        this.username = email;
+        this.email = email;
         this.password = password;
         this.authorities = authorities;
     }
@@ -67,7 +67,7 @@ public class UserPrinciple implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override

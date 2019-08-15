@@ -18,10 +18,10 @@ public class DBConfig {
     private String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
     //    @Value("${db.password}")
-    private String PASSWORD = "reallyStrong123*";
+    private String PASSWORD = "reallyStrong!123";
 
     //    @Value("${db.url}")
-    private String URL = "jdbc:sqlserver://localhost:1433;databaseName=SpringProject";
+    private String URL = "jdbc:sqlserver://192.168.99.100\\\\\\\\sql_server:1433;databaseName=SpringProject";
 
     //    @Value("${db.username}")
     private String USERNAME = "sa";
