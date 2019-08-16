@@ -59,4 +59,10 @@ public class JwtProvider {
 			                .parseClaimsJws(token)
 			                .getBody().getSubject();
     }
+
+    public Date getDateFromJwtToken(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret)
+                            .parseClaimsJws(token)
+                            .getBody().getIssuedAt();
+    }
 }

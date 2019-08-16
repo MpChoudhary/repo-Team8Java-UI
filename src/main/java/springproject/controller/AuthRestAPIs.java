@@ -1,5 +1,6 @@
 package springproject.controller;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -62,7 +63,12 @@ public class AuthRestAPIs {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateJwtToken(authentication);
-        return ResponseEntity.ok(new JwtResponse(jwt));
+        Date issuedDate = jwtProvider.getDateFromJwtToken(jwt);
+        String stringDate = issuedDate.toString();
+//        System.out.println(stringDate);  Thu Aug 15 23:36:50 EDT 2019
+//        DateFormat dateFormat = new SimpleDateFormat("MMMMM.yyyy");
+//        String stringDate = dataFormat.format(issuedDate);
+        return ResponseEntity.ok(new JwtResponse(jwt, stringDate));
     }
 
     @PostMapping(path = "/signup", produces = "application/json")
