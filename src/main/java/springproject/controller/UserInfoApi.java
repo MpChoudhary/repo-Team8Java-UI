@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class UserInfoApi {
     @Autowired

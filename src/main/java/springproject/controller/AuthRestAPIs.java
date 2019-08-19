@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,6 +51,9 @@ public class AuthRestAPIs {
     @Autowired
     JwtProvider jwtProvider;
 
+    @Value("${grokonez.app.jwtExpiration}")
+    private String expiration;
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
@@ -63,12 +67,14 @@ public class AuthRestAPIs {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateJwtToken(authentication);
-        Date issuedDate = jwtProvider.getDateFromJwtToken(jwt);
-        String stringDate = issuedDate.toString();
+        Date expirationDate = jwtProvider.getDateFromJwtToken(jwt);
+        String name = jwtProvider.getUserNameFromJwtToken(jwt);
+//        String stringDate = expirationDate.toString();
 //        System.out.println(stringDate);  Thu Aug 15 23:36:50 EDT 2019
 //        DateFormat dateFormat = new SimpleDateFormat("MMMMM.yyyy");
 //        String stringDate = dataFormat.format(issuedDate);
-        return ResponseEntity.ok(new JwtResponse(jwt, stringDate));
+        String stringDate = expiration;
+        return ResponseEntity.ok(new JwtResponse(jwt, stringDate, name));
     }
 
     @PostMapping(path = "/signup", produces = "application/json")

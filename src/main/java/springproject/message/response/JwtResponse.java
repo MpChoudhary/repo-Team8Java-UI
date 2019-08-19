@@ -1,20 +1,19 @@
 package springproject.message.response;
 
-import java.util.Date;
-
 public class JwtResponse {
     private String token;
     private String type = "Bearer";
-    public String issuedDate;
+    public String expiration;
+    public String name;
 
-    public JwtResponse(String token, String issuedDate) {
+    public JwtResponse(String token, String expiration, String name) {
         this.token = token;
-        this.issuedDate = issuedDate;
+        this.expiration = expiration;
+        this.name =  name;
     }
-//
-//    public JwtResponse(String accessToken) {
-//        this.token = accessToken;
-//    }
+    public JwtResponse(String accessToken) {
+        this.token = accessToken;
+    }
 
     public String getAccessToken() {
         return token;
