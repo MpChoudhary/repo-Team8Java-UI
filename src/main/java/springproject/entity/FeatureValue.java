@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -29,19 +30,19 @@ public class FeatureValue {
 	@ManyToOne
 	@Cascade({CascadeType.MERGE})
 	@JoinColumn(name="feature_id")
-	@JsonBackReference
+	@JsonManagedReference
 	private Feature feature;
 
 	@OneToOne
 	@Cascade({CascadeType.MERGE})
 	@JoinColumn(name="resource_id")
-	@JsonBackReference
+	@JsonManagedReference
 	private Resource resource;
 	
 	@ManyToOne
 	@Cascade({CascadeType.MERGE})
 	@JoinColumn(name="project_id")
-	@JsonBackReference
+	@JsonManagedReference
 	private Project project;
 	
 	public FeatureValue() {

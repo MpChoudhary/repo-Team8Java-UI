@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springproject.entity.*;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class FeatureController {
 
@@ -92,13 +94,17 @@ public class FeatureController {
         if(submit.startsWith("delete")) {
             return Action.DELETE;
         }
+        if(submit.startsWith("edit")){
+            return Action.EDIT;
+        }
         return Action.NOT_FOUND;
     }
 
+    @SuppressWarnings("Duplicates")
     private void featureActions(JSONObject jsonObject, Action action, HttpServletResponse res) throws IOException {
         int selectedProjectId;
         Project project;
-        String projectId = "projectName";
+        String projectId = "projectId";
 
         switch (action) {
             case ADD:
@@ -107,11 +113,11 @@ public class FeatureController {
                 projectService.saveFeature(newFeature(jsonObject, project));
 
                 jsonService.flushMessage("Successfully added", res);
-                jsonService.flushFeatures(res, projectService.getFeatures());
+//                jsonService.flushFeatures(res, projectService.getFeatures());
                 break;
 
             case DISPLAY:
-                jsonService.flushMessage("Display all features", res);
+//                jsonService.flushMessage("Display all features", res);
                 jsonService.flushFeatures(res, projectService.getFeatures());
                 break;
 
@@ -128,15 +134,32 @@ public class FeatureController {
                     projectService.deleteFeature(deleteFeatureId);
 
                     jsonService.flushMessage("Successfully deleted", res);
-                    jsonService.flushFeatures(res, projectService.getFeatures());
+//                    jsonService.flushFeatures(res, projectService.getFeatures());
                 } else {
                     jsonService.flushMessage("Feature id not found!", res);
                 }
                 break;
 
             case DISPLAY_ALL:
-                jsonService.flushMessage("Display all", res);
+//                jsonService.flushMessage("Display all", res);
                 jsonService.flushProjects(res, projectService.getProjects());
+                break;
+            case EDIT:
+                int updateFeatureId = Integer.parseInt(((String) jsonObject.get("submit")).substring(4));
+                Feature featureToUpdate = projectService.getFeature(updateFeatureId);
+                if(featureToUpdate != null) {
+                    featureToUpdate.setName((String) jsonObject.get("name"));
+                    featureToUpdate.setType((String) jsonObject.get("type"));
+                    if(verifyFormulaContent(jsonObject)) {
+                        featureToUpdate.setContent((String) jsonObject.get("content"));
+                    } else {
+                        featureToUpdate.setContent(null);
+                    }
+                    projectService.saveFeature(featureToUpdate);
+                    jsonService.flushMessage("Feature " + updateFeatureId + " saved successfully!", res);
+                } else {
+                    jsonService.flushMessage("Feature id not found!", res);
+                }
                 break;
 
             case FIND:
@@ -157,18 +180,18 @@ public class FeatureController {
     private Feature newFeature(JSONObject jsonObject, Project project) {
         Feature feature;
         if(verifyFormulaContent(jsonObject)) {
-            feature = new Feature((String) jsonObject.get("featureName"), (String) jsonObject.get("featureType"),
-                    (String) jsonObject.get("featureContent"));
+            feature = new Feature((String) jsonObject.get("name"), (String) jsonObject.get("type"),
+                    (String) jsonObject.get("content"));
         } else {
-            feature = new Feature((String) jsonObject.get("featureName"), (String) jsonObject.get("featureType"), null);
+            feature = new Feature((String) jsonObject.get("name"), (String) jsonObject.get("type"), null);
         }
         feature.setProject(project);
         return feature;
     }
 
     private boolean verifyFormulaContent(JSONObject jsonObject) {
-        if(((String) jsonObject.get("featureType")).equalsIgnoreCase("formula")) {
-            return jsonObject.get("featureContent") != null && !((((String) jsonObject.get("featureContent")).trim()).equals(""));
+        if(((String) jsonObject.get("type")).equalsIgnoreCase("formula")) {
+            return jsonObject.get("content") != null && !((((String) jsonObject.get("content")).trim()).equals(""));
         }
         return false;
     }

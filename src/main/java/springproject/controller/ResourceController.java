@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springproject.entity.FeatureValue;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class ResourceController {
 
@@ -91,13 +93,17 @@ public class ResourceController {
         if(submit.startsWith("delete")) {
             return Action.DELETE;
         }
+        if(submit.startsWith("edit")){
+            return Action.EDIT;
+        }
         return Action.NOT_FOUND;
     }
 
+    @SuppressWarnings("Duplicates")
     private void resourceActions(HttpServletResponse res, JSONObject jsonObject, Action action) throws IOException {
         int selectedProjectId;
         Project project;
-        String projectId = "projectName";
+        String projectId = "projectId";
 
         switch (action) {
             case ADD:
@@ -106,11 +112,11 @@ public class ResourceController {
                 projectService.saveResource(newResource(jsonObject, project));
 
                 jsonService.flushMessage("Resource successfully added", res);
-                jsonService.flushResources(res, projectService.getResources());
+//                jsonService.flushResources(res, projectService.getResources());
                 break;
 
             case DISPLAY:
-                jsonService.flushMessage("Display all resources", res);
+//                jsonService.flushMessage("Display all resources", res);
                 jsonService.flushResources(res, projectService.getResources());
                 break;
 
@@ -124,14 +130,14 @@ public class ResourceController {
                     }
                     projectService.deleteResource(deleteResourceId);
                     jsonService.flushMessage("Resource successfully deleted", res);
-                    jsonService.flushResources(res, projectService.getResources());
+//                    jsonService.flushResources(res, projectService.getResources());
                 } else {
                     jsonService.flushMessage("Resource id not found!", res);
                 }
                 break;
 
             case DISPLAY_ALL:
-                jsonService.flushMessage("Display all", res);
+//                jsonService.flushMessage("Display all", res);
                 jsonService.flushProjects(res, projectService.getProjects());
                 break;
 
@@ -139,7 +145,18 @@ public class ResourceController {
                 int findResourceId = Integer.parseInt(((String) jsonObject.get("submit")).substring(4));
                 jsonService.flushResource(res, findResourceId);
                 break;
-
+            case EDIT:
+                int updateResourceId = Integer.parseInt(((String) jsonObject.get("submit")).substring(4));
+                Resource resourceToUpdate = projectService.getResource(updateResourceId);
+                if(resourceToUpdate != null) {
+                    resourceToUpdate.setCode((String) jsonObject.get("code"));
+                    resourceToUpdate.setName((String) jsonObject.get("name"));
+                    projectService.saveResource(resourceToUpdate);
+                    jsonService.flushMessage("Resource "+ updateResourceId + " saved successfully!", res);
+                } else {
+                    jsonService.flushMessage("Resource id not found!", res);
+                }
+                break;
             case NOT_FOUND:
             default:
                 jsonService.flushMessage("Error", res);
@@ -151,7 +168,7 @@ public class ResourceController {
     }
 
     private Resource newResource(JSONObject jsonObject, Project project) {
-        Resource resource = new Resource((String) jsonObject.get("resourceCode"), (String) jsonObject.get("resourceName"));
+        Resource resource = new Resource((String) jsonObject.get("code"), (String) jsonObject.get("name"));
         resource.setProject(project);
         return resource;
     }

@@ -1,6 +1,7 @@
 package springproject.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,10 +9,12 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class ProjectController {
 
@@ -88,7 +92,7 @@ public class ProjectController {
 				newProject(jsonObject);
 
 				jsonService.flushMessage("Successfully added", res);
-				jsonService.flushProjects(res, projectService.getProjects());
+//				jsonService.flushProjects(res, projectService.getProjects());
 				break;
 
 			case DELETE:
@@ -113,7 +117,7 @@ public class ProjectController {
 					}
 					projectService.deleteProject(deleteProjectId);
 					jsonService.flushMessage("Successfully deleted", res);
-					jsonService.flushProjects(res, projectService.getProjects());
+//					jsonService.flushProjects(res, projectService.getProjects());
 				} else {
 					jsonService.flushMessage("Project id not found!", res);
 				}
@@ -121,7 +125,8 @@ public class ProjectController {
 
 			case DISPLAY:
 			case DISPLAY_ALL:
-				jsonService.flushMessage("Display all projects", res);
+//				jsonService.flushMessage("Display all projects", res);
+//				return new ResponseEntity<Project>.ok(new Project());
 				jsonService.flushProjects(res, projectService.getProjects());
 				break;
 

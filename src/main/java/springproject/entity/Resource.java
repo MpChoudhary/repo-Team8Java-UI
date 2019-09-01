@@ -31,12 +31,12 @@ public class Resource {
 	@ManyToOne
 	@JoinColumn(name="project_id")
 	@Cascade({CascadeType.SAVE_UPDATE})
-	@JsonBackReference
+	@JsonManagedReference
 	private Project project;
 
 	@OneToOne(mappedBy="resource", fetch = FetchType.EAGER)
 	@Cascade(CascadeType.SAVE_UPDATE)
-	@JsonManagedReference
+	@JsonBackReference
 	private FeatureValue featureValue;
 
 	public int getId() {

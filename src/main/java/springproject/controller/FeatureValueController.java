@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springproject.entity.*;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class FeatureValueController {
 
@@ -98,13 +100,17 @@ public class FeatureValueController {
         if(submit.startsWith("delete")) {
             return Action.DELETE;
         }
+        if(submit.startsWith("edit")){
+            return Action.EDIT;
+        }
         return Action.NOT_FOUND;
     }
 
+    @SuppressWarnings("Duplicates")
     private void featureValueActions(JSONObject jsonObject, Action action, HttpServletResponse res) throws IOException {
         int selectedProjectId;
         Project project;
-        String projectId = "projectName";
+        String projectId = "projectId";
 
         switch (action) {
             case ADD:
@@ -113,11 +119,11 @@ public class FeatureValueController {
                 projectService.saveFeatureValue(newFeatureValue(jsonObject, project));
 
                 jsonService.flushMessage("Successfully added", res);
-                jsonService.flushFeatureValues(res, projectService.getFeatureValues());
+//                jsonService.flushFeatureValues(res, projectService.getFeatureValues());?
                 break;
 
             case DISPLAY:
-                jsonService.flushMessage("Display all feature values", res);
+//                jsonService.flushMessage("Display all feature values", res);
                 jsonService.flushFeatureValues(res, projectService.getFeatureValues());
                 break;
 
@@ -127,20 +133,32 @@ public class FeatureValueController {
                 if(projectService.getFeatureValue(deleteFeatureValueId) != null) {
                     projectService.deleteFeatureValue(deleteFeatureValueId);
                     jsonService.flushMessage("Successfully deleted", res);
-                    jsonService.flushFeatureValues(res, projectService.getFeatureValues());
+//                    jsonService.flushFeatureValues(res, projectService.getFeatureValues());
                 } else {
                     jsonService.flushMessage("Feature value id not found!", res);
                 }
                 break;
 
             case DISPLAY_ALL:
-                jsonService.flushMessage("Display all", res);
+//                jsonService.flushMessage("Display all", res);
                 jsonService.flushProjects(res, projectService.getProjects());
                 break;
 
             case FIND:
                 int findFeatureValueId = Integer.parseInt(((String) jsonObject.get("submit")).substring(4));
                 jsonService.flushFeatureValue(res, findFeatureValueId);
+                break;
+
+            case EDIT:
+                int updateFVId = Integer.parseInt(((String) jsonObject.get("submit")).substring(4));
+                FeatureValue featureValueToUpdate = projectService.getFeatureValue(updateFVId);
+                if(featureValueToUpdate != null) {
+                    featureValueToUpdate.setValue((String) jsonObject.get("value"));
+                    projectService.saveFeatureValue(featureValueToUpdate);
+                    jsonService.flushMessage("Feature Value " + updateFVId + " saved successfully!", res);
+                } else {
+                    jsonService.flushMessage("Feature value id not found!", res);
+                }
                 break;
 
             case NOT_FOUND:
@@ -154,10 +172,10 @@ public class FeatureValueController {
     }
 
     private FeatureValue newFeatureValue(JSONObject jsonObject, Project project) {
-        FeatureValue featureValue = new FeatureValue((String) jsonObject.get("featureValue"));
+        FeatureValue featureValue = new FeatureValue((String) jsonObject.get("value"));
         featureValue.setProject(project);
-        featureValue.setFeature(projectService.getFeature(Integer.parseInt((String) jsonObject.get("featureName"))));
-        featureValue.setResource(projectService.getResource(Integer.parseInt((String) jsonObject.get("resourceName"))));
+        featureValue.setFeature(projectService.getFeature(Integer.parseInt((String) jsonObject.get("featureId"))));
+        featureValue.setResource(projectService.getResource(Integer.parseInt((String) jsonObject.get("resourceId"))));
         return featureValue;
     }
 }

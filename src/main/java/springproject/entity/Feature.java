@@ -30,12 +30,12 @@ public class Feature {
 	@ManyToOne
 	@Cascade({CascadeType.SAVE_UPDATE})
 	@JoinColumn(name="project_id")
-	@JsonBackReference
+	@JsonManagedReference
 	private Project project;
 	
 	@OneToMany(mappedBy="feature", fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE})
-	@JsonManagedReference
+	@JsonBackReference
 	private List<FeatureValue> featureValues;
 
 

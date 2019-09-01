@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,11 +84,14 @@ public class JsonServiceImpl implements JsonService {
     @Override
     public void flushProjects(HttpServletResponse res, List<Project> projects) throws IOException {
         PrintWriter pw = res.getWriter();
+        ArrayList<String> strArr = new ArrayList<>();
         for (Project project : projects) {
             String json = objectWriter.writeValueAsString(projectService.getProject(project.getId()));
             System.out.println(json);
-            pw.println(json);
+            strArr.add(json);
+//            pw.println(json);
         }
+        pw.println(Arrays.toString(strArr.toArray()));
     }
 
     @Override
@@ -104,11 +110,14 @@ public class JsonServiceImpl implements JsonService {
     @Override
     public void flushResources(HttpServletResponse res, List<Resource> resources) throws IOException {
         PrintWriter pw = res.getWriter();
+        ArrayList<String> strArr = new ArrayList<>();
         for (Resource resource : resources) {
             String json = objectWriter.writeValueAsString(projectService.getResource(resource.getId()));
             System.out.println(json);
-            pw.println(json);
+            strArr.add(json);
+//            pw.println(json);
         }
+        pw.println(Arrays.toString(strArr.toArray()));
     }
 
     @Override
@@ -128,11 +137,14 @@ public class JsonServiceImpl implements JsonService {
     @Override
     public void flushFeatures(HttpServletResponse res, List<Feature> features) throws IOException {
         PrintWriter pw = res.getWriter();
+        ArrayList<String> strArr = new ArrayList<>();
         for (Feature feature : features) {
             String json = objectWriter.writeValueAsString(projectService.getFeature(feature.getId()));
             System.out.println(json);
-            pw.println(json);
+            strArr.add(json);
+//            pw.println(json);
         }
+        pw.println(Arrays.toString(strArr.toArray()));
     }
 
     @Override
@@ -151,11 +163,14 @@ public class JsonServiceImpl implements JsonService {
     @Override
     public void flushFeatureValues(HttpServletResponse res, List<FeatureValue> featureValues) throws IOException {
         PrintWriter pw = res.getWriter();
+        ArrayList<String> strArr = new ArrayList<>();
         for (FeatureValue featureValue : featureValues) {
             String json = objectWriter.writeValueAsString(projectService.getFeatureValue(featureValue.getId()));
             System.out.println(json);
-            pw.println(json);
+            strArr.add(json);
+//            pw.println(json);
         }
+        pw.println(Arrays.toString(strArr.toArray()));
     }
 
     @Override

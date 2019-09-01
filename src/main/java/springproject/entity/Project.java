@@ -1,5 +1,6 @@
 package springproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Cascade;
@@ -25,17 +26,17 @@ public class Project {
 
 	@OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE})
-	@JsonManagedReference
+	@JsonBackReference
 	private List<Resource> resources;
 
 	@OneToMany(mappedBy="project", fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE})
-	@JsonManagedReference
+	@JsonBackReference
 	private List<Feature> features;
 
 	@OneToMany(mappedBy="project", fetch = FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE})
-	@JsonManagedReference
+	@JsonBackReference
 	private List<FeatureValue> featureValues;
 
 	public Project() {
